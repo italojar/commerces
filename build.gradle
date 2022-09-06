@@ -9,9 +9,13 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        //hilt
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-
+        //navigation-safe-args
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        //secrets-gradle-plugin
+        classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

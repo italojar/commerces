@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="website.italojar.klikincommerces">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".CommercesApplication"
         android:allowBackup="true"
@@ -10,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KlikinCommerces">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
