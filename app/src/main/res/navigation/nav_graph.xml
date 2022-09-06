@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/commercesListFragment">
+
+    <fragment
+        android:id="@+id/commercesListFragment"
+        android:name="website.italojar.klikincommerces.presentation.commerces_list.CommercesListFragment"
+        android:label="fragment_commerces_list"
+        tools:layout="@layout/fragment_commerces_list" >
+        <action
+            android:id="@+id/action_commercesListFragment_to_commerceDetailFragment"
+            app:destination="@id/commerceDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commerceDetailFragment"
+        android:name="website.italojar.klikincommerces.presentation.commerce_detail.CommerceDetailFragment"
+        android:label="fragment_commerce_detail"
+        tools:layout="@layout/fragment_commerce_detail" />
+
+</navigation>

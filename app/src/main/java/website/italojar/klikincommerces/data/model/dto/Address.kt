@@ -4,5 +4,5 @@ data class Address(
     val city: String,
     val country: String,
     val street: String,
-    val zip: Int
+    val zip: String
 )

@@ -13,6 +13,5 @@ data class V1(
     val oldid: Int,
     val otrooldid: Int,
     val ownerId: String,
-    val signatures: Signatures,
     val slug: String
 )
