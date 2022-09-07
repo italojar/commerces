@@ -10,10 +10,14 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.categories.CategoriesAdapter
+import website.italojar.klikincommerces.data.model.dto.CommerceDto
+import website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces.CommerceAdapter
+
 
 @AndroidEntryPoint
 class CommercesListFragment : Fragment() {
@@ -40,7 +44,7 @@ class CommercesListFragment : Fragment() {
             }
             binding.totalCommerces.text = commerces_list.size.toString()
             initRecyclerViewCategories(commerces_list.map { commerceDto -> commerceDto.category })
-
+            initRecyclerViewCommerces(commerces_list)
         })
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { visibility ->
             binding.cardviewCommerces.isVisible = !visibility
@@ -49,16 +53,24 @@ class CommercesListFragment : Fragment() {
         })
     }
 
-    private fun initRecyclerViewCategories(listCategories: List<String>) {
+    private fun initRecyclerViewCategories(categoriesList: List<String>) {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManager
-        val categoriesGroup = listCategories.groupBy { category -> category }
-        val categoriesList = categoriesGroup.mapNotNull { name -> name.key }
-        val categoriesAdapter = CategoriesAdapter(categoriesList) { category ->
+        val categoriesGroup = categoriesList.groupBy { category -> category }
+        val listCategoriesGroup = categoriesGroup.mapNotNull { name -> name.key }
+        val categoriesAdapter = CategoriesAdapter(listCategoriesGroup) { category ->
             Toast.makeText(requireContext(), category, Toast.LENGTH_LONG).show()
         }
         binding.rvCategories.adapter = categoriesAdapter
+    }
+
+    private fun initRecyclerViewCommerces(commercesList: List<CommerceDto>) {
+        binding.rvCommerces.layoutManager = LinearLayoutManager(requireContext())
+        val commercesAdapter = CommerceAdapter(commercesList) { commerce ->
+            findNavController().navigate(CommercesListFragmentDirections.actionCommercesListFragmentToCommerceDetailFragment())
+        }
+        binding.rvCommerces.adapter = commercesAdapter
     }
 
     override fun onDestroyView() {

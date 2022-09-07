@@ -7,28 +7,28 @@ import website.italojar.klikincommerces.databinding.ItemCategoriesBinding
 import website.italojar.klikincommerces.utils.modifyCategory
 
 class CategoriesViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    private val categoryItem = ItemCategoriesBinding.bind(view)
+    private val binding = ItemCategoriesBinding.bind(view)
     fun render(category: String?) {
         if (category == null) return
         when(category) {
             "SHOPPING" -> {
-                categoryItem.modifyCategory(
+                binding.modifyCategory(
                     R.drawable.cart_colour, "Compras", R.color.category_shopping)
             }
             "FOOD" -> {
-                categoryItem.modifyCategory(
+                binding.modifyCategory(
                     R.drawable.catering_colour, "Restaurantes", R.color.primary_light)
             }
             "BEAUTY" -> {
-                categoryItem.modifyCategory(
+                binding.modifyCategory(
                     R.drawable.beauty_colour, "Belleza", R.color.category_beauty)
             }
             "LEISURE" -> {
-                categoryItem.modifyCategory(
+                binding.modifyCategory(
                     R.drawable.leisure_colour, "Ocio", R.color.category_leisure)
             }
             "OTHER" -> {
-                categoryItem.modifyCategory(
+                binding.modifyCategory(
                     R.drawable.truck_colour, "Otros", R.color.category_others)
             }
         }

@@ -4,4 +4,5 @@
     <dimen name="medium">8dp</dimen>
     <dimen name="large">16dp</dimen>
     <dimen name="cardview_default">120dp</dimen>
+    <dimen name="rv_category_color">42dp</dimen>
 </resources>
