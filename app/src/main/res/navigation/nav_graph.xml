@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/commercesListFragment"
         android:name="website.italojar.klikincommerces.presentation.commerces_list.CommercesListFragment"
-        android:label="fragment_commerces_list"
+        android:label="Listado de Comercios"
         tools:layout="@layout/fragment_commerces_list" >
         <action
             android:id="@+id/action_commercesListFragment_to_commerceDetailFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/commerceDetailFragment"
         android:name="website.italojar.klikincommerces.presentation.commerce_detail.CommerceDetailFragment"
-        android:label="fragment_commerce_detail"
+        android:label="Nombre del Comercio"
         tools:layout="@layout/fragment_commerce_detail" />
 
 </navigation>

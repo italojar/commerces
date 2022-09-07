@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
 
 @AndroidEntryPoint
@@ -37,10 +36,11 @@ class CommercesListFragment : Fragment() {
             commerces_list.forEach { commerceDto ->
                 Log.i(":::", commerceDto.name)
             }
-            binding.textViewA.text = commerces_list.size.toString() + "Comercios"
+            binding.totalCommerces.text = commerces_list.size.toString()
+            /*binding.textViewA.text = commerces_list.size.toString() + "Comercios"
             binding.textViewA.setOnClickListener {
                 findNavController().navigate(CommercesListFragmentDirections.actionCommercesListFragmentToCommerceDetailFragment())
-            }
+            }*/
         })
     }
 

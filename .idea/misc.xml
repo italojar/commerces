@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/drawable/arrow_left.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/layout/activity_main.xml" value="0.10090817356205853" />
+        <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/layout/fragment_commerce_detail.xml" value="0.10090817356205853" />
+        <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/layout/fragment_commerces_list.xml" value="0.2" />
+        <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/layout/fragment_map.xml" value="0.10090817356205853" />
+        <entry key="..\:/Users/italo/AndroidStudioProjects/KlikinCommerces/app/src/main/res/layout/toolbar_app.xml" value="0.1" />
       </map>
     </option>
   </component>
