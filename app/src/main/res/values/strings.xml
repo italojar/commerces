@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Klikin  Commerces</string>
     <string name="fragment_commerces_list">Listado de Comercios</string>
+    <string name="commerces">Comercios</string>
+    <string name="loading">Cargando…</string>
     <string name="implement_listener"> must implement IFragmentsListener</string>
 </resources>

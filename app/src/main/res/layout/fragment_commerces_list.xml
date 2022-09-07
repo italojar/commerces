@@ -13,7 +13,8 @@
         android:layout_height="@dimen/cardview_default"
         android:backgroundTint="@color/secondary"
         app:cardCornerRadius="@dimen/medium"
-        android:layout_margin="@dimen/medium"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginVertical="@dimen/large"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/cardview_distance">
@@ -36,7 +37,7 @@
             android:layout_marginStart="@dimen/large"
             android:layout_marginTop="@dimen/large"
             android:textSize="18sp"
-            android:text="Comercios"
+            android:text="@string/commerces"
             android:layout_gravity="center_vertical"
             android:textColor="@color/white" />
 
@@ -48,9 +49,61 @@
         android:layout_height="@dimen/cardview_default"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="@dimen/medium"
-        android:layout_margin="@dimen/medium"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginVertical="@dimen/large"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardview_commerces"/>
+        app:layout_constraintStart_toEndOf="@id/cardview_commerces">
+
+        <TextView
+            android:id="@+id/nearest_commerces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large"
+            android:layout_marginBottom="@dimen/large"
+            android:textSize="32sp"
+            android:text="10"
+            android:layout_gravity="start|center"
+            android:textColor="@color/primary"/>
+
+        <TextView
+            android:id="@+id/tv_commerces_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large"
+            android:layout_marginTop="@dimen/large"
+            android:textSize="18sp"
+            android:text="A menos de 1 km"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/title" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginVertical="@dimen/large"
+        app:layout_constraintTop_toBottomOf="@id/cardview_commerces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_categories"
+        tools:itemCount="1"/>
+
+
+
+
+    <include
+        android:id="@+id/progressBarApp"
+        layout="@layout/progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

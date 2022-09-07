@@ -6,6 +6,10 @@
     <color name="secondary">#041e42</color>
     <color name="secondary_light">#004b8c</color>
     <color name="title">#464646</color>
+    <color name="category_shopping">#C07BDD</color>
+    <color name="category_beauty">#D64878</color>
+    <color name="category_leisure">#9538de</color>
+    <color name="category_others">#F495A6</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
