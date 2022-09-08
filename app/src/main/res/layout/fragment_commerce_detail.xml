@@ -1,21 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/medium"
     tools:context=".presentation.commerce_detail.CommerceDetailFragment">
 
-    <include
-        android:id="@+id/map_container"
-        layout="@layout/fragment_map"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_commerce_image"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginHorizontal="@dimen/large"
+            app:cardCornerRadius="@dimen/medium"
+            app:layout_constraintBottom_toTopOf="@id/map_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2">
+
+            <ImageView
+                android:id="@+id/im_commercer_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:scaleType="centerCrop"
+                android:src="@drawable/only_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large"
+            android:text="@string/detail_fragment_location"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/map_container"
+            app:layout_constraintTop_toBottomOf="@id/cardview_commerce_image" />
+
+        <TextView
+            android:id="@+id/tv_take_me_here"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large"
+            android:text="@string/detail_fragment_take_me_here"
+            android:textColor="@color/secondary_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_location"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/map_container"
+            layout="@layout/fragment_map"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="@dimen/large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large"
+            app:cardCornerRadius="@dimen/medium"
+            android:elevation="@dimen/large"
+            app:layout_constraintTop_toBottomOf="@id/map_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/im_category_detail"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="@dimen/medium"
+                android:layout_margin="@dimen/large"
+                android:background="@color/background"
+                android:src="@drawable/catering_colour" />
+
+            <LinearLayout
+                android:layout_width="236dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/large"
+                android:layout_gravity="center|end">
+
+                <TextView
+                    android:id="@+id/tv_street_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    tools:text="Calle Evergreen Terrace"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:id="@+id/tv_telephone_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small"
+                    android:padding="@dimen/small"
+                    android:textSize="18sp"
+                    tools:text="919191919"
+                    android:textColor="@color/secondary_light"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/small"
+                    android:drawableStart="@drawable/phone_white"/>
+                <TextView
+                    android:id="@+id/tv_timetable_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small"
+                    android:textSize="16sp"
+                    tools:text="Horarios: 000000000000000000000000000000000000000000000000000000000000000"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/small"
+                    android:drawableStart="@drawable/time_colour"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_about_commerce_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large"
+            android:text="@string/detail_fragment_about_commerce"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView_info"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large"
+            app:cardCornerRadius="@dimen/medium"
+            android:elevation="@dimen/large"
+            app:layout_constraintTop_toBottomOf="@id/tv_about_commerce_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_description_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/large"
+                android:textSize="18sp"
+                tools:text="Si eres mayor de edad y quieres aumentar tus ingresos puedes colaborar como gestor de ventas independiente. Monta tu negocio de perfumes y si tienes negocio , dale un impulso con perfumeria de alta gama ..Envia wassap o llama al 681 671 968" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

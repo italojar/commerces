@@ -1,23 +1,33 @@
 package website.italojar.klikincommerces.presentation.commerce_detail
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.FragmentCommerceDetailBinding
 import website.italojar.klikincommerces.presentation.interfaces.IFragmentsListener
+import website.italojar.klikincommerces.utils.loadImage
 
-
+@AndroidEntryPoint
 class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentCommerceDetailBinding? = null
     private val binding get() = _binding!!
+    val args: CommerceDetailFragmentArgs by navArgs()
+
 
     private lateinit var map: GoogleMap
     private var mContext: IFragmentsListener? = null
@@ -33,16 +43,72 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mContext?.setToolbarTitle("Ricardo Jaramillo")
+        createMapFragment()
+        setDataToCommerceDetail()
+        navigateToMaps()
     }
 
-    private fun createMap() {
-        val mapFragment: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+    /* Maps */
+    private fun createMapFragment() {
+        val mapFragment: SupportMapFragment =
+            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        createMarker(args.commerceDetail.latitude, args.commerceDetail.longitude)
+    }
+
+    private fun createMarker(latitude: Double, longitude: Double) {
+        val cordinates = LatLng(latitude, longitude)
+        val marker = MarkerOptions().position(cordinates).title(args.commerceDetail.name)
+        map.addMarker(marker)
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(cordinates, 18f),
+            400, null
+        )
+    }
+
+    private fun navigateToMaps() {
+        binding.tvTakeMeHere.setOnClickListener {
+            takeMeToMap(Uri.parse("http://maps.google.com/maps?saddr=40.418144162017526, -3.7032223535613804&daddr=${args.commerceDetail.latitude}, ${args.commerceDetail.longitude}"))
+        }
+    }
+
+    /* Set Data */
+    private fun setDataToCommerceDetail() {
+        with(binding) {
+            mContext?.setToolbarTitle(args.commerceDetail.name)
+            imCommercerImage.loadImage(
+                args.commerceDetail.logo ?: getString(R.string.detail_fragment_default_image)
+            )
+            tvTelephoneDetail.setOnClickListener { dialPhoneNumber(args.commerceDetail.contact) }
+            tvStreetDetail.text = args.commerceDetail.address.capitalize()
+            tvTelephoneDetail.text = args.commerceDetail.contact
+            tvTimetableDetail.text = args.commerceDetail.openingHours
+            tvDescriptionDetail.text =
+                args.commerceDetail.description ?: getString(R.string.detail_fragment_come_to_visit_us)
+        }
+    }
+
+    /* Intents */
+    private fun takeMeToMap(geoLocation: Uri) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = geoLocation
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
+    private fun dialPhoneNumber(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
     }
 
     override fun onAttach(context: Context) {

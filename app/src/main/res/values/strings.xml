@@ -6,4 +6,9 @@
     <string name="category_other">OTHER</string>
     <string name="error">Ha ocuurido un error inesperado</string>
     <string name="implement_listener"> deberás implementar IFragmentsListener</string>
+    <string name="detail_fragment_about_commerce">Sobre el comercio</string>
+    <string name="detail_fragment_location">Localización</string>
+    <string name="detail_fragment_take_me_here">Llévame aquí</string>
+    <string name="detail_fragment_come_to_visit_us">¡Ven a conocernos!</string>
+    <string name="detail_fragment_default_image">https://atenoil.com/wp-content/uploads/2018/07/6-min-1.jpg</string>
 </resources>

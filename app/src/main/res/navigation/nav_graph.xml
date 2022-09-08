@@ -18,6 +18,10 @@
         android:id="@+id/commerceDetailFragment"
         android:name="website.italojar.klikincommerces.presentation.commerce_detail.CommerceDetailFragment"
         android:label="Nombre del Comercio"
-        tools:layout="@layout/fragment_commerce_detail" />
+        tools:layout="@layout/fragment_commerce_detail" >
+        <argument
+            android:name="commerceDetail"
+            app:argType="website.italojar.klikincommerces.presentation.model.CommerceDetailVO" />
+    </fragment>
 
 </navigation>
