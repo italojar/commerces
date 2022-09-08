@@ -1,5 +1,6 @@
 package website.italojar.klikincommerces.presentation.commerces_list
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,10 +14,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.categories.CategoriesAdapter
 import website.italojar.klikincommerces.data.model.dto.CommerceDto
+import website.italojar.klikincommerces.domain.model.Commerce
+import website.italojar.klikincommerces.presentation.MainActivity
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces.CommerceAdapter
+import website.italojar.klikincommerces.presentation.model.CommerceVO
+import kotlin.coroutines.suspendCoroutine
 
 
 @AndroidEntryPoint
@@ -39,17 +47,19 @@ class CommercesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.commerces.observe(viewLifecycleOwner, Observer { commerces_list ->
-            commerces_list.forEach { commerceDto ->
-                Log.i(":::", commerceDto.name + " " + commerceDto.category)
-            }
             binding.totalCommerces.text = commerces_list.size.toString()
-            initRecyclerViewCategories(commerces_list.map { commerceDto -> commerceDto.category })
+            initRecyclerViewCategories(commerces_list.map {
+                    commerceDto -> commerceDto.category?: getString(R.string.category_other)
+            })
             initRecyclerViewCommerces(commerces_list)
         })
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { visibility ->
             binding.cardviewCommerces.isVisible = !visibility
             binding.cardviewDistance.isVisible = !visibility
             binding.progressBarApp.root.isVisible = visibility
+        })
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -65,7 +75,7 @@ class CommercesListFragment : Fragment() {
         binding.rvCategories.adapter = categoriesAdapter
     }
 
-    private fun initRecyclerViewCommerces(commercesList: List<CommerceDto>) {
+    private fun initRecyclerViewCommerces(commercesList: List<CommerceVO>) {
         binding.rvCommerces.layoutManager = LinearLayoutManager(requireContext())
         val commercesAdapter = CommerceAdapter(commercesList) { commerce ->
             findNavController().navigate(CommercesListFragmentDirections.actionCommercesListFragmentToCommerceDetailFragment())

@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import website.italojar.klikincommerces.R
-import website.italojar.klikincommerces.data.model.dto.CommerceDto
 import website.italojar.klikincommerces.databinding.ItemCommerceBinding
+import website.italojar.klikincommerces.domain.model.Commerce
+import website.italojar.klikincommerces.presentation.model.CommerceVO
 
 class CommerceAdapter(
-    private val commerces: List<CommerceDto>,
-    private val onClick: (commerce: CommerceDto) -> Unit
+    private val commerces: List<CommerceVO>,
+    private val onClick: (commerce: CommerceVO) -> Unit
 ): RecyclerView.Adapter<CommerceAdapter.CommerceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommerceViewHolder {
@@ -28,7 +29,7 @@ class CommerceAdapter(
 
     inner class CommerceViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val binding = ItemCommerceBinding.bind(view)
-        fun render(commerce: CommerceDto) {
+        fun render(commerce: CommerceVO) {
             binding.tvTitle.text = commerce.name
             binding.tvSubtitle.text = commerce.description
         }
