@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import website.italojar.klikincommerces.R
@@ -25,6 +26,12 @@ class CommercesListViewModel @Inject constructor(
     val commerces: LiveData<List<CommerceVO>> = _commerces
     val isLoading = MutableLiveData<Boolean>()
     val error = MutableLiveData<String>()
+    private val mutableSelectedItem = MutableLiveData<LatLng>()
+    val selectedItem: LiveData<LatLng> = mutableSelectedItem
+
+    fun selectItem(location: LatLng) {
+        mutableSelectedItem.value = location
+    }
 
     init {
         getAllCommerces()

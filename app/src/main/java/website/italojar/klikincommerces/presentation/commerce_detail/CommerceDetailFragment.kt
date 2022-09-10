@@ -72,7 +72,7 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun navigateToMaps() {
         binding.tvTakeMeHere.setOnClickListener {
-            takeMeToMap(Uri.parse("http://maps.google.com/maps?saddr=40.418144162017526, -3.7032223535613804&daddr=${args.commerceDetail.latitude}, ${args.commerceDetail.longitude}"))
+            takeMeToMap(Uri.parse("http://maps.google.com/maps?saddr=${args.latitude}, ${args.longitude}&daddr=${args.commerceDetail.latitude}, ${args.commerceDetail.longitude}"))
         }
     }
 
