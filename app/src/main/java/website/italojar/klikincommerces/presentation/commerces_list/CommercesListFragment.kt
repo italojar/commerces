@@ -30,6 +30,8 @@ class CommercesListFragment : Fragment() {
 
     private val viewModel: CommercesListViewModel by viewModels()
     private val activityViewModel: CommercesListViewModel by activityViewModels()
+    private lateinit var commercesMutableList: MutableList<CommerceVO>
+    private lateinit var commercesAdapter: CommerceAdapter
     private  var latitude: Float = 0.0f
     private  var longitude: Float = 0.0f
 
@@ -48,12 +50,17 @@ class CommercesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // success
         viewModel.commerces.observe(viewLifecycleOwner, Observer { commerces_list ->
-            binding.totalCommerces.text = commerces_list.size.toString()
-            initRecyclerViewCategories(commerces_list)
-            initRecyclerViewCommerces(commerces_list)
+            commercesMutableList = commerces_list as MutableList<CommerceVO>
+            binding.totalCommerces.text = commercesMutableList.size.toString()
+            if (this::commercesMutableList.isInitialized){
+                initRecyclerViewCategories()
+                initRecyclerViewCommerces()
+            }
         })
         // loading
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { visibility ->
+            binding.cardviewCommerces.isVisible = !visibility
+            binding.cardviewDistance.isVisible = !visibility
             binding.progressBarApp.root.isVisible = visibility
         })
         // error
@@ -71,25 +78,28 @@ class CommercesListFragment : Fragment() {
     }
 
     // Recyclers
-    private fun initRecyclerViewCategories(commerce_list: List<CommerceVO>) {
+    private fun initRecyclerViewCategories() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManager
-        val categoriesAdapter = CategoriesAdapter(getCategoriesByGroup(commerce_list)) { category ->
-            Toast.makeText(requireContext(), category, Toast.LENGTH_LONG).show()
+        val getCategories = getCategoriesByGroup(commercesMutableList)
+        val categoriesAdapter = CategoriesAdapter(getCategories) { category ->
+            updateCommerces(category ?: getString(R.string.category_food))
         }
         binding.rvCategories.adapter = categoriesAdapter
     }
 
-    private fun initRecyclerViewCommerces(commercesList: List<CommerceVO>) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun initRecyclerViewCommerces() {
         binding.rvCommerces.layoutManager = LinearLayoutManager(requireContext())
-        val commercesAdapter = CommerceAdapter(commercesList) { commerce ->
+        commercesAdapter = CommerceAdapter(commercesMutableList) { commerce ->
             findNavController().navigate(CommercesListFragmentDirections
                 .actionCommercesListFragmentToCommerceDetailFragment(commerce.toDetail(),
                     latitude, longitude
                 ))
         }
         binding.rvCommerces.adapter = commercesAdapter
+        commercesAdapter.notifyDataSetChanged()
     }
 
     private fun getCategoriesByGroup(commerce_list: List<CommerceVO>): List<String> {
@@ -98,6 +108,14 @@ class CommercesListFragment : Fragment() {
         }
         val categoriesGroup = allCommerceCategories.groupBy { category -> category }
         return categoriesGroup.mapNotNull { name -> name.key }
+    }
+
+    private fun updateCommerces(category: String) {
+        if (!this::commercesMutableList.isInitialized){
+            initRecyclerViewCommerces()
+        }else {
+            viewModel.updatePokemon(commercesMutableList.filter { it.category == category })
+        }
     }
 
     override fun onDestroyView() {

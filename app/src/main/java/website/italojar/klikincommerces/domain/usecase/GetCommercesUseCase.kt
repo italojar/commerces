@@ -10,7 +10,7 @@ class GetCommercesUseCase @Inject constructor(
     suspend operator fun invoke(): List<Commerce>{
         val commerces = repository.getAllCommerces()
         return if(commerces.isNotEmpty())
-            commerces
+            commerces.filter { it.active }
         else
             emptyList()
     }

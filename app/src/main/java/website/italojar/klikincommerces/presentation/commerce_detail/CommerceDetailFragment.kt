@@ -65,7 +65,7 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
         val marker = MarkerOptions().position(cordinates).title(args.commerceDetail.name)
         map.addMarker(marker)
         map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(cordinates, 18f),
+            CameraUpdateFactory.newLatLngZoom(cordinates, 15f),
             400, null
         )
     }

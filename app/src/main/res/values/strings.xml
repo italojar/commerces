@@ -4,6 +4,9 @@
     <string name="commerces">Comercios</string>
     <string name="loading">Cargando…</string>
     <string name="category_other">OTHER</string>
+    <string name="category_food">FOOD</string>
+    <string name="category_beauty">BEAUTY</string>
+    <string name="category_shopping">SHOPPING</string>
     <string name="error">Ha ocuurido un error inesperado</string>
     <string name="implement_listener"> deberás implementar IFragmentsListener</string>
     <string name="detail_fragment_about_commerce">Sobre el comercio</string>

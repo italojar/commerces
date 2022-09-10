@@ -52,4 +52,8 @@ class CommercesListViewModel @Inject constructor(
             }
         }
     }
+
+    fun updatePokemon(commerces: List<CommerceVO>) {
+        _commerces.postValue(commerces)
+    }
 }
