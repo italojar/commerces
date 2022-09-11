@@ -1,13 +1,16 @@
 package website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.ItemCommerceBinding
 import website.italojar.klikincommerces.presentation.model.CommerceVO
 import website.italojar.klikincommerces.utils.loadImage
+import website.italojar.klikincommerces.utils.modifyCategory
 
 class CommerceAdapter(
     private val commerces: List<CommerceVO>,
@@ -30,6 +33,43 @@ class CommerceAdapter(
     inner class CommerceViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val binding = ItemCommerceBinding.bind(view)
         fun render(commerce: CommerceVO) {
+            when(commerce.category) {
+                "SHOPPING" -> {
+                    binding.viewCategoryColor.setBackgroundColor(ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.category_shopping)
+                    )
+                    binding.imCategory.setImageResource(R.drawable.cart_white)
+                }
+                "FOOD" -> {
+                    binding.viewCategoryColor.setBackgroundColor(ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.primary_light)
+                    )
+                    binding.imCategory.setImageResource(R.drawable.catering_white)
+                }
+                "BEAUTY" -> {
+                    binding.viewCategoryColor.setBackgroundColor(ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.category_beauty)
+                    )
+                    binding.imCategory.setImageResource(R.drawable.beauty_white)
+                }
+                "LEISURE" -> {
+                    binding.viewCategoryColor.setBackgroundColor(ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.category_leisure)
+                    )
+                    binding.imCategory.setImageResource(R.drawable.leisure_white)
+                }
+                "OTHER" -> {
+                    binding.viewCategoryColor.setBackgroundColor(ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.category_others)
+                    )
+                    binding.imCategory.setImageResource(R.drawable.truck_white)
+                }
+            }
             binding.tvTitle.text = commerce.name
             binding.tvSubtitle.text = commerce.openingHours
             binding.imCommerce.loadImage(

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -89,6 +90,23 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
             tvTimetableDetail.text = args.commerceDetail.openingHours
             tvDescriptionDetail.text =
                 args.commerceDetail.description ?: getString(R.string.detail_fragment_come_to_visit_us)
+            when(args.commerceDetail.category) {
+                "SHOPPING" -> {
+                    binding.imCategoryDetail.setImageResource(R.drawable.cart_colour)
+                }
+                "FOOD" -> {
+                    binding.imCategoryDetail.setImageResource(R.drawable.catering_colour)
+                }
+                "BEAUTY" -> {
+                    binding.imCategoryDetail.setImageResource(R.drawable.beauty_colour)
+                }
+                "LEISURE" -> {
+                    binding.imCategoryDetail.setImageResource(R.drawable.leisure_colour)
+                }
+                "OTHER" -> {
+                    binding.imCategoryDetail.setImageResource(R.drawable.truck_colour)
+                }
+            }
         }
     }
 
