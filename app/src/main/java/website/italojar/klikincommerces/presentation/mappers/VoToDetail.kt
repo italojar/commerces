@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation
+package website.italojar.klikincommerces.presentation.mappers
 
 import website.italojar.klikincommerces.presentation.model.CommerceDetailVO
 import website.italojar.klikincommerces.presentation.model.CommerceVO

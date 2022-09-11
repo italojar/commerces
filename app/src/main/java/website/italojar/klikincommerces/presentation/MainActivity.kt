@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
-import website.italojar.klikincommerces.presentation.commerces_list.CommercesListViewModel
+import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
 import website.italojar.klikincommerces.presentation.interfaces.IFragmentsListener
 
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: MaterialToolbar
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val viewModel: CommercesListViewModel by viewModels()
+    private val viewModel: SharedCommerceViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener {
                 //create bundle instance
                 val location: Location? = task.result
                 if (location != null) {
-                    viewModel.selectItem(LatLng(location.latitude, location.longitude))
+                    viewModel.getCurrentLocation(LatLng(location.latitude, location.longitude))
                 }
             }
         } else {

@@ -4,5 +4,4 @@ import website.italojar.klikincommerces.domain.model.Commerce
 
 interface ICommercesRepository {
     suspend fun getAllCommerces(): List<Commerce>
-    GETCATEGORIESUSECASE
 }

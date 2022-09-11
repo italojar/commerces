@@ -19,7 +19,8 @@ import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.categories.CategoriesAdapter
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces.CommerceAdapter
 import website.italojar.klikincommerces.presentation.model.CommerceVO
-import website.italojar.klikincommerces.presentation.toDetail
+import website.italojar.klikincommerces.presentation.mappers.toDetail
+import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
 
 
 @AndroidEntryPoint
@@ -28,10 +29,11 @@ class CommercesListFragment : Fragment() {
     private var _binding: FragmentCommercesListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CommercesListViewModel by viewModels()
-    private val activityViewModel: CommercesListViewModel by activityViewModels()
+    private val viewModel: SharedCommerceViewModel by viewModels()
+    private val activityViewModel: SharedCommerceViewModel by activityViewModels()
     private lateinit var commercesMutableList: MutableList<CommerceVO>
     private lateinit var commercesAdapter: CommerceAdapter
+    private lateinit var categoriesMutableList: MutableList<String>
     private  var latitude: Float = 0.0f
     private  var longitude: Float = 0.0f
 
@@ -53,8 +55,13 @@ class CommercesListFragment : Fragment() {
             commercesMutableList = commerces_list as MutableList<CommerceVO>
             binding.totalCommerces.text = commercesMutableList.size.toString()
             if (this::commercesMutableList.isInitialized){
-                initRecyclerViewCategories()
                 initRecyclerViewCommerces()
+            }
+        })
+        viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
+            categoriesMutableList = categories as MutableList<String>
+            if (this::categoriesMutableList.isInitialized){
+                initRecyclerViewCategories()
             }
         })
         // loading
@@ -65,13 +72,14 @@ class CommercesListFragment : Fragment() {
         })
         // error
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            activity?.finish()
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         })
     }
 
     override fun onStart() {
         super.onStart()
-        activityViewModel.selectedItem.observe(viewLifecycleOwner, { currentLocation ->
+        activityViewModel.currentLocation.observe(viewLifecycleOwner, { currentLocation ->
             latitude = currentLocation.latitude.toFloat()
             longitude = currentLocation.longitude.toFloat()
         })
@@ -82,8 +90,7 @@ class CommercesListFragment : Fragment() {
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManager
-        val getCategories = getCategoriesByGroup(commercesMutableList)
-        val categoriesAdapter = CategoriesAdapter(getCategories) { category ->
+        val categoriesAdapter = CategoriesAdapter(categoriesMutableList) { category ->
             updateCommerces(category ?: getString(R.string.category_food))
         }
         binding.rvCategories.adapter = categoriesAdapter
@@ -102,19 +109,11 @@ class CommercesListFragment : Fragment() {
         commercesAdapter.notifyDataSetChanged()
     }
 
-    private fun getCategoriesByGroup(commerce_list: List<CommerceVO>): List<String> {
-        val allCommerceCategories = commerce_list.map { commerceVO ->
-            commerceVO.category?: getString(R.string.category_other)
-        }
-        val categoriesGroup = allCommerceCategories.groupBy { category -> category }
-        return categoriesGroup.mapNotNull { name -> name.key }
-    }
-
     private fun updateCommerces(category: String) {
         if (!this::commercesMutableList.isInitialized){
             initRecyclerViewCommerces()
-        }else {
-            viewModel.updatePokemon(commercesMutableList.filter { it.category == category })
+        }else{
+            viewModel.updateCommerces(commercesMutableList, category)
         }
     }
 
