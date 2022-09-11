@@ -18,4 +18,5 @@
     <string name="question_enable_gps">Tú GPS está deshabilitado, ¿quieres habilitarlo?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="commerce_image_description">Commerce image</string>
 </resources>

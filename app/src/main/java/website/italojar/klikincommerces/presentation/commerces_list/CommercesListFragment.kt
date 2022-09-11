@@ -46,8 +46,7 @@ class CommercesListFragment : Fragment() {
         _binding = FragmentCommercesListBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
-    @SuppressLint("MissingPermission")
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // success
@@ -64,11 +63,19 @@ class CommercesListFragment : Fragment() {
                 initRecyclerViewCategories()
             }
         })
+        viewModel.commercesByCategory.observe(viewLifecycleOwner, Observer { commerces_list ->
+            commercesMutableList = commerces_list as MutableList<CommerceVO>
+            binding.totalCommerces.text = commercesMutableList.size.toString()
+            if (this::commercesMutableList.isInitialized){
+                initRecyclerViewCommerces()
+            }
+        })
         // loading
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { visibility ->
-            binding.cardviewCommerces.isVisible = !visibility
-            binding.cardviewDistance.isVisible = !visibility
+            binding.rvCommerces.isVisible = !visibility
+            binding.totalCommerces.isVisible = !visibility
             binding.progressBarApp.root.isVisible = visibility
+            binding.progressBarTotal.root.isVisible = visibility
         })
         // error
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
@@ -91,7 +98,7 @@ class CommercesListFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCategories.layoutManager = layoutManager
         val categoriesAdapter = CategoriesAdapter(categoriesMutableList) { category ->
-            updateCommerces(category ?: getString(R.string.category_food))
+            filterCommercesByCategory(category ?: getString(R.string.category_food))
         }
         binding.rvCategories.adapter = categoriesAdapter
     }
@@ -109,11 +116,11 @@ class CommercesListFragment : Fragment() {
         commercesAdapter.notifyDataSetChanged()
     }
 
-    private fun updateCommerces(category: String) {
+    private fun filterCommercesByCategory(category: String) {
         if (!this::commercesMutableList.isInitialized){
             initRecyclerViewCommerces()
         }else{
-            viewModel.updateCommerces(commercesMutableList, category)
+            viewModel.getCommercesByCategory(category)
         }
     }
 

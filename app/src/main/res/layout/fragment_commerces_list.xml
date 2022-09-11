@@ -41,6 +41,16 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/white" />
 
+        <include
+            android:id="@+id/progressBarTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            android:layout_marginBottom="@dimen/large"
+            android:layout_gravity="start|center"
+            android:visibility="gone"
+            layout="@layout/progressbar"/>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

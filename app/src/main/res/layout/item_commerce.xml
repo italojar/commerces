@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -71,9 +72,9 @@
             android:id="@+id/im_commerce"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/only_image"
-            android:contentDescription="Commerce image" />
+            android:scaleType="fitCenter"
+            tools:src="@drawable/only_image"
+            android:contentDescription="@string/commerce_image_description" />
 
         </androidx.cardview.widget.CardView>
 
@@ -82,8 +83,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/large"
-            android:text="Lorem ipsum"
-            android:textSize="22sp"
+            tools:text="Lorem ipsum"
+            android:textSize="21sp"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
@@ -98,8 +99,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/large"
-            android:text="Lorem ipsum dolor"
-            android:textSize="18sp"
+            tools:text="Lorem ipsum dolor"
+            android:textSize="14sp"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@id/cardview_image_commerce"

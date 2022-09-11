@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.ItemCommerceBinding
-import website.italojar.klikincommerces.domain.model.Commerce
 import website.italojar.klikincommerces.presentation.model.CommerceVO
+import website.italojar.klikincommerces.utils.loadImage
 
 class CommerceAdapter(
     private val commerces: List<CommerceVO>,
@@ -31,7 +31,10 @@ class CommerceAdapter(
         val binding = ItemCommerceBinding.bind(view)
         fun render(commerce: CommerceVO) {
             binding.tvTitle.text = commerce.name
-            binding.tvSubtitle.text = commerce.description
+            binding.tvSubtitle.text = commerce.openingHours
+            binding.imCommerce.loadImage(
+                commerce.logo?.thumbnails?.small ?: "https://atenoil.com/wp-content/uploads/2018/07/6-min-1.jpg"
+            )
         }
     }
 }
