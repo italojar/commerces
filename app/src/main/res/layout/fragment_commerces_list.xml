@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/commerces_list_container"
     tools:context=".presentation.commerces_list.CommercesListFragment">
 
 
@@ -117,8 +118,22 @@
         tools:listitem="@layout/item_commerce"
         tools:itemCount="3"/>
 
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/large"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="TextView" />
+
     <include
-        android:id="@+id/progressBarApp"
+        android:id="@+id/progressbar_app"
         layout="@layout/progressbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

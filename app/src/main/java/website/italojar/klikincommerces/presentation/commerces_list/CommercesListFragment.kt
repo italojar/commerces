@@ -1,12 +1,13 @@
 package website.italojar.klikincommerces.presentation.commerces_list
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -37,7 +38,6 @@ class CommercesListFragment : Fragment() {
     private  var latitude: Float = 0.0f
     private  var longitude: Float = 0.0f
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,11 +49,15 @@ class CommercesListFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getData()
+    }
+
+    private fun getData() {
         // success
         viewModel.commerces.observe(viewLifecycleOwner, Observer { commerces_list ->
             commercesMutableList = commerces_list as MutableList<CommerceVO>
-            binding.totalCommerces.text = commercesMutableList.size.toString()
             if (this::commercesMutableList.isInitialized){
+                binding.totalCommerces.text = commercesMutableList.size.toString()
                 initRecyclerViewCommerces()
             }
         })
@@ -65,8 +69,8 @@ class CommercesListFragment : Fragment() {
         })
         viewModel.commercesByCategory.observe(viewLifecycleOwner, Observer { commerces_list ->
             commercesMutableList = commerces_list as MutableList<CommerceVO>
-            binding.totalCommerces.text = commercesMutableList.size.toString()
             if (this::commercesMutableList.isInitialized){
+                binding.totalCommerces.text = commercesMutableList.size.toString()
                 initRecyclerViewCommerces()
             }
         })
@@ -74,18 +78,30 @@ class CommercesListFragment : Fragment() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { visibility ->
             binding.rvCommerces.isVisible = !visibility
             binding.totalCommerces.isVisible = !visibility
-            binding.progressBarApp.root.isVisible = visibility
+            binding.progressbarApp.root.isVisible = visibility
             binding.progressBarTotal.root.isVisible = visibility
         })
         // error
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            activity?.finish()
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            binding.cardviewCommerces.isVisible = false
+            binding.cardviewDistance.isVisible = false
+            binding.rvCategories.isVisible = false
+            if (this::categoriesMutableList.isInitialized){
+                commercesMutableList.clear()
+                commercesAdapter.notifyDataSetChanged()
+            }
+            binding.rvCommerces.isVisible = false
+            binding.tvError.isVisible = true
+            binding.tvError.text = error
+            binding.tvError.setOnClickListener {
+                startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+            }
         })
     }
 
     override fun onStart() {
         super.onStart()
+        getData()
         activityViewModel.currentLocation.observe(viewLifecycleOwner, { currentLocation ->
             latitude = currentLocation.latitude.toFloat()
             longitude = currentLocation.longitude.toFloat()

@@ -28,8 +28,8 @@ class SharedCommerceViewModel @Inject constructor(
     private val _commercesByCategory = MutableLiveData<List<CommerceVO>>()
     val commercesByCategory: LiveData<List<CommerceVO>> = _commercesByCategory
 
-    private val _categories = MutableLiveData<List<String>>()
-    val categories: LiveData<List<String>> = _categories
+    private val _categories = MutableLiveData<List<String>?>()
+    val categories: LiveData<List<String>?> = _categories
 
     val isLoading = MutableLiveData<Boolean>()
 
@@ -44,34 +44,30 @@ class SharedCommerceViewModel @Inject constructor(
 
     private fun getInitDataToSetUi() {
         viewModelScope.launch {
-            try {
-                isLoading.postValue(true)
-                val allCommerces = getAllCommercesUseCase()
-                val allCategories = getCategoriesUseCase()
-                if (!allCommerces.isNullOrEmpty()){
-                    _commerces.value = allCommerces.map { commerce -> commerce.tovO() }
-                    _categories.value = allCategories
-                    isLoading.postValue(false)
-                }
-            }catch (exception: Exception){
+            isLoading.postValue(true)
+            val allCommerces = getAllCommercesUseCase()
+            val allCategories = getCategoriesUseCase()
+            if (!allCommerces.data.isNullOrEmpty()) {
+                _commerces.value = allCommerces.data.map { commerce -> commerce.tovO() }
+                _categories.value = allCategories.data
                 isLoading.postValue(false)
-                error.postValue("Ha ocurrido un error inesperado")
+            }else {
+                error.postValue(allCommerces.message ?: "Ha ocurrido un error inesperado")
+                isLoading.postValue(false)
             }
         }
     }
 
     fun getCommercesByCategory(category: String) {
         viewModelScope.launch {
-            try {
-                isLoading.postValue(true)
-                val allCommerces = getCommercesByCategoryUseCase(category)
-                if (!allCommerces.isNullOrEmpty()){
-                    _commercesByCategory.value = allCommerces.map { commerce -> commerce.tovO() }
-                    isLoading.postValue(false)
-                }
-            }catch (exception: Exception){
+            isLoading.postValue(true)
+            val allCommerces = getCommercesByCategoryUseCase(category)
+            if (!allCommerces.data.isNullOrEmpty()) {
+                _commercesByCategory.value = allCommerces.data.map { commerce -> commerce.tovO() }
                 isLoading.postValue(false)
-                error.postValue("Ha ocurrido un error inesperado")
+            }else {
+                error.postValue(allCommerces.message ?: "Ha ocurrido un error inesperado")
+                isLoading.postValue(false)
             }
         }
     }
