@@ -12,7 +12,6 @@ import website.italojar.klikincommerces.domain.usecase.GetCategoriesUseCase
 import website.italojar.klikincommerces.domain.usecase.GetCommercesByCategoryUseCase
 import website.italojar.klikincommerces.domain.usecase.GetCommercesUseCase
 import website.italojar.klikincommerces.presentation.model.CommerceVO
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel

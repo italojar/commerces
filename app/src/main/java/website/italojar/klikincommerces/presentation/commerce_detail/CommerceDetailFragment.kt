@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -84,12 +83,14 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
             imCommercerImage.loadImage(
                 args.commerceDetail.logo ?: getString(R.string.detail_fragment_default_image)
             )
+
             tvTelephoneDetail.setOnClickListener { dialPhoneNumber(args.commerceDetail.contact) }
             tvStreetDetail.text = args.commerceDetail.address.capitalize()
             tvTelephoneDetail.text = args.commerceDetail.contact
             tvTimetableDetail.text = args.commerceDetail.openingHours
             tvDescriptionDetail.text =
                 args.commerceDetail.description ?: getString(R.string.detail_fragment_come_to_visit_us)
+
             when(args.commerceDetail.category) {
                 "SHOPPING" -> {
                     binding.imCategoryDetail.setImageResource(R.drawable.cart_colour)

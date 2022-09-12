@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener {
     private fun requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Toast.makeText(this, "Ve a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.go_to_settings), Toast.LENGTH_SHORT).show()
         } else {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener {
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
             else -> {
-                Toast.makeText(this, "Para activar la localización ve a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.go_to_settings_location_permissions), Toast.LENGTH_SHORT).show()
             }
         }
     }

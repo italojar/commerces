@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetCommercesByCategoryUseCase @Inject constructor(
     private val repository: CommercesRepositoryImpl
 ) {
-    suspend operator fun invoke(category: String): ResponseCommerces<List<Commerce>> {
+    suspend operator fun invoke(category: String): ResponseCommerces<Commerce> {
         try {
             val commerces = repository.getAllCommerces()
             return if(commerces.isNotEmpty())

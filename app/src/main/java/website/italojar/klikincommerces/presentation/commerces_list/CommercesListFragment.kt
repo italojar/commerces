@@ -49,10 +49,20 @@ class CommercesListFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
+        getUiData()
     }
 
-    private fun getData() {
+    override fun onStart() {
+        super.onStart()
+        getUiData()
+        activityViewModel.currentLocation.observe(viewLifecycleOwner, { currentLocation ->
+            latitude = currentLocation.latitude.toFloat()
+            longitude = currentLocation.longitude.toFloat()
+        })
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getUiData() {
         // success
         viewModel.commerces.observe(viewLifecycleOwner, Observer { commerces_list ->
             commercesMutableList = commerces_list as MutableList<CommerceVO>
@@ -80,6 +90,7 @@ class CommercesListFragment : Fragment() {
             binding.totalCommerces.isVisible = !visibility
             binding.progressbarApp.root.isVisible = visibility
             binding.progressBarTotal.root.isVisible = visibility
+            binding.progressBarTotal.tvLoading.isVisible = false
         })
         // error
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
@@ -96,15 +107,6 @@ class CommercesListFragment : Fragment() {
             binding.tvError.setOnClickListener {
                 startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
             }
-        })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        getData()
-        activityViewModel.currentLocation.observe(viewLifecycleOwner, { currentLocation ->
-            latitude = currentLocation.latitude.toFloat()
-            longitude = currentLocation.longitude.toFloat()
         })
     }
 

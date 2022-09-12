@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Klikin  Commerces</string>
+    <string name="app_name">Commerces</string>
     <string name="fragment_commerces_list">Listado de Comercios</string>
     <string name="commerces">Comercios</string>
     <string name="loading">Cargando…</string>
@@ -16,7 +16,7 @@
     <string name="detail_fragment_default_image">https://atenoil.com/wp-content/uploads/2018/07/6-min-1.jpg</string>
     <string name="enable_settings_location">Para activar la localización ve a  los ajustes de la aplicación y acepta los permisos</string>
     <string name="question_enable_gps">Tú GPS está deshabilitado, ¿quieres habilitarlo?</string>
-    <string name="yes">Si</string>
-    <string name="no">No</string>
     <string name="commerce_image_description">Commerce image</string>
+    <string name="go_to_settings">Ve a ajustes y acepta los permisos</string>
+    <string name="go_to_settings_location_permissions">Para activar la localización ve a ajustes y acepta los permisos</string>
 </resources>

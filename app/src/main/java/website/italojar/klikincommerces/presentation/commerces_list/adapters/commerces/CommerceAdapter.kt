@@ -1,6 +1,5 @@
 package website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.ItemCommerceBinding
 import website.italojar.klikincommerces.presentation.model.CommerceVO
 import website.italojar.klikincommerces.utils.loadImage
-import website.italojar.klikincommerces.utils.modifyCategory
 
 class CommerceAdapter(
     private val commerces: List<CommerceVO>,
