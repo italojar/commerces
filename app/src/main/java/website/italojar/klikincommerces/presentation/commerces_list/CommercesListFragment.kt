@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,6 +21,8 @@ import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.categories.CategoriesAdapter
 import website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces.CommerceAdapter
+import website.italojar.klikincommerces.presentation.commerces_list.adapters.dialog.DialogDistanceAdapter
+import website.italojar.klikincommerces.presentation.components.DistanceDialog
 import website.italojar.klikincommerces.presentation.model.CommerceVO
 import website.italojar.klikincommerces.presentation.mappers.toDetail
 import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
@@ -108,6 +112,10 @@ class CommercesListFragment : Fragment() {
                 startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
             }
         })
+
+        binding.cardviewDistance.setOnClickListener {
+            onCardDistanceClick()
+        }
     }
 
     // Recyclers
@@ -132,6 +140,11 @@ class CommercesListFragment : Fragment() {
         }
         binding.rvCommerces.adapter = commercesAdapter
         commercesAdapter.notifyDataSetChanged()
+    }
+
+    private fun onCardDistanceClick() {
+        val newFragment = DistanceDialog()
+        newFragment.show(requireActivity().supportFragmentManager, "game")
     }
 
     private fun filterCommercesByCategory(category: String) {

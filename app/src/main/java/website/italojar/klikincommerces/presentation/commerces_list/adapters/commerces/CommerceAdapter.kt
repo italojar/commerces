@@ -29,7 +29,7 @@ class CommerceAdapter(
     override fun getItemCount() = commerces.size
 
     inner class CommerceViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val binding = ItemCommerceBinding.bind(view)
+        private val binding = ItemCommerceBinding.bind(view)
         fun render(commerce: CommerceVO) {
             when(commerce.category) {
                 "SHOPPING" -> {

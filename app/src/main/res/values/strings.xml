@@ -19,4 +19,11 @@
     <string name="commerce_image_description">Commerce image</string>
     <string name="go_to_settings">Ve a ajustes y acepta los permisos</string>
     <string name="go_to_settings_location_permissions">Para activar la localización ve a ajustes y acepta los permisos</string>
+    <string-array name="distances">
+        <item>1 KM</item>
+        <item>3 KM</item>
+        <item>5 KM</item>
+        <item>10 KM</item>
+        <item>20 KM</item>
+    </string-array>
 </resources>

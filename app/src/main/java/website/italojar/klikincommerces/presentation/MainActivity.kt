@@ -24,12 +24,13 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import website.italojar.klikincommerces.presentation.components.DistanceDialog
 import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
 import website.italojar.klikincommerces.presentation.interfaces.IFragmentsListener
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), IFragmentsListener {
+class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.DialogListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: MaterialToolbar
@@ -141,5 +142,9 @@ class MainActivity : AppCompatActivity(), IFragmentsListener {
         if(!isPermissionsGranted()){
             requestLocationPermission()
         }
+    }
+
+    override fun onDialogPositiveClick(distance: Int) {
+        Toast.makeText(this, distance.toString(), Toast.LENGTH_SHORT).show()
     }
 }
