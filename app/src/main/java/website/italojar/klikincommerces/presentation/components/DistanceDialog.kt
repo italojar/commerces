@@ -32,12 +32,13 @@ class DistanceDialog : DialogFragment() {
                             2 -> {listener.onDialogPositiveClick(5000)}
                             3 -> {listener.onDialogPositiveClick(10000)}
                             4 -> {listener.onDialogPositiveClick(20000)}
+                            5 -> {listener.onDialogPositiveClick(50000)}
                             else -> {listener.onDialogPositiveClick(1000)}
                         }
                     })
 
             val inflater = requireActivity().layoutInflater;
-            builder.setView(inflater.inflate(R.layout.dialog_fragment_select_distance, null))
+            builder.setView(inflater.inflate(R.layout.item_select_distance, null))
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
