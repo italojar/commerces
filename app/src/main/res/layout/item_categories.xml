@@ -7,19 +7,20 @@
     android:layout_marginVertical="@dimen/small"
     android:layout_marginEnd="@dimen/medium"
     android:elevation="@dimen/small"
-    android:layout_width="158dp"
+    android:layout_width="@dimen/item_category"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
     <ImageView
         android:id="@+id/imCategory"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="@dimen/img_mini_size"
+        android:layout_height="@dimen/img_mini_size"
         android:padding="@dimen/small"
         android:layout_marginVertical="@dimen/medium"
         android:layout_marginHorizontal="@dimen/small"
         android:layout_gravity="start|center_vertical"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/category_image_description" />
 
     <TextView
         android:id="@+id/tvCategory"
@@ -28,7 +29,7 @@
         android:padding="@dimen/small"
         android:layout_marginVertical="@dimen/medium"
         android:layout_marginHorizontal="@dimen/large"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_default"
         android:textStyle="bold"
         tools:text="Categoría 1"
         android:layout_gravity="center"/>

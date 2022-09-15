@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation.components
+package website.italojar.klikincommerces.presentation.components.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -7,16 +7,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import website.italojar.klikincommerces.R
+import website.italojar.klikincommerces.presentation.interfaces.IDialogListener
 
 class DistanceDialog : DialogFragment() {
-    private lateinit var listener: DialogListener
-
-    /* The activity that creates an instance of this dialog fragment must
-     * implement this interface in order to receive event callbacks.
-     * Each method passes the DialogFragment in case the host needs to query it. */
-    interface DialogListener {
-        fun onDialogPositiveClick(distance: Int)
-    }
+    private lateinit var listener: IDialogListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {// Where
@@ -24,8 +18,6 @@ class DistanceDialog : DialogFragment() {
             builder.setTitle("Selecciona una distancia")
                 .setItems(R.array.distances,
                     DialogInterface.OnClickListener { dialog, which ->
-                        // The 'which' argument contains the index position
-                        // of the selected item
                         when(which) {
                             0 -> {listener.onDialogPositiveClick(1000)}
                             1 -> {listener.onDialogPositiveClick(3000)}
@@ -45,14 +37,11 @@ class DistanceDialog : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        // Verify that the host activity implements the callback interface
         try {
-            // Instantiate the DialogListener so we can send events to the host
-            listener = context as DialogListener
+            listener = context as IDialogListener
         } catch (e: ClassCastException) {
-            // The activity doesn't implement the interface, throw exception
             throw ClassCastException((context.toString() +
-                    " must implement DialogListener"))
+                    " must implement IDialogListener"))
         }
     }
 

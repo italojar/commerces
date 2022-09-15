@@ -2,55 +2,54 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/commerces_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/commerces_list_container"
-    tools:context=".presentation.commerces_list.CommercesListFragment">
-
+    tools:context=".presentation.components.commerces_list.CommercesListFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_commerces"
         android:layout_width="0dp"
         android:layout_height="@dimen/cardview_default"
-        android:backgroundTint="@color/secondary"
-        app:cardCornerRadius="@dimen/medium"
         android:layout_marginHorizontal="@dimen/medium"
         android:layout_marginVertical="@dimen/large"
-        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/secondary"
+        app:cardCornerRadius="@dimen/medium"
+        app:layout_constraintEnd_toStartOf="@id/cardview_distance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cardview_distance">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/total_commerces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:layout_marginStart="@dimen/large"
             android:layout_marginBottom="@dimen/large"
-            android:textSize="28sp"
-            tools:text="101"
-            android:layout_gravity="start|center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xlarge"
+            tools:text="101" />
 
         <TextView
             android:id="@+id/tv_commerces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/large"
             android:layout_marginTop="@dimen/large"
-            android:textSize="16sp"
             android:text="@string/commerces"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_default" />
 
         <include
             android:id="@+id/progressBarTotal"
+            layout="@layout/progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:layout_marginStart="@dimen/medium"
             android:layout_marginBottom="@dimen/large"
-            android:layout_gravity="start|center"
-            android:visibility="gone"
-            layout="@layout/progressbar"/>
+            android:visibility="gone" />
 
     </androidx.cardview.widget.CardView>
 
@@ -58,48 +57,48 @@
         android:id="@+id/cardview_distance"
         android:layout_width="0dp"
         android:layout_height="@dimen/cardview_default"
-        android:backgroundTint="@color/white"
-        app:cardCornerRadius="@dimen/medium"
         android:layout_marginHorizontal="@dimen/medium"
         android:layout_marginVertical="@dimen/large"
-        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardview_commerces">
+        app:layout_constraintStart_toEndOf="@id/cardview_commerces"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/nearest_commerces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:layout_marginStart="@dimen/large"
             android:layout_marginBottom="@dimen/large"
-            android:textSize="28sp"
-            tools:text="10"
-            android:layout_gravity="start|center"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_xlarge"
+            tools:text="10" />
 
         <TextView
             android:id="@+id/tv_commerces_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/large"
             android:layout_marginTop="@dimen/large"
+            android:ellipsize="middle"
             android:lines="1"
             android:maxLines="1"
-            android:ellipsize="middle"
-            android:textSize="16sp"
-            android:text="@string/commerces_minus_of"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/title" />
+            android:text="@string/list_fragment_commerces_minus_of"
+            android:textColor="@color/title"
+            android:textSize="@dimen/text_default" />
 
         <include
             android:id="@+id/progressBarTotalNearest"
+            layout="@layout/progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
             android:layout_marginStart="@dimen/medium"
             android:layout_marginBottom="@dimen/large"
-            android:layout_gravity="start|center"
-            android:visibility="gone"
-            layout="@layout/progressbar"/>
+            android:visibility="gone" />
 
     </androidx.cardview.widget.CardView>
 
@@ -107,14 +106,14 @@
         android:id="@+id/rv_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginHorizontal="@dimen/medium"
         android:layout_marginVertical="@dimen/large"
-        app:layout_constraintTop_toBottomOf="@id/cardview_commerces"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_categories"
-        tools:itemCount="1">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardview_commerces"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_categories">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -124,38 +123,38 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/medium"
         android:layout_marginVertical="@dimen/large"
-        app:layout_constraintTop_toBottomOf="@id/rv_categories"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_commerce"
-        tools:itemCount="3"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_categories"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_commerce" />
 
     <TextView
         android:id="@+id/tv_error_distance"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:gravity="center"
         android:layout_marginHorizontal="@dimen/medium"
         android:layout_marginVertical="@dimen/large"
-        app:layout_constraintTop_toBottomOf="@id/rv_categories"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_categories" />
 
     <TextView
         android:id="@+id/tv_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/large"
-        android:textSize="18sp"
-        android:visibility="gone"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/text_default"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="TextView" />
 
     <include
@@ -164,9 +163,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

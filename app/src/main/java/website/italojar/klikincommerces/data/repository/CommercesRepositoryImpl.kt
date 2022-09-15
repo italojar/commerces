@@ -4,7 +4,6 @@ import website.italojar.klikincommerces.data.mappers.toDomain
 import website.italojar.klikincommerces.data.source.network.service.CommercesService
 import website.italojar.klikincommerces.domain.irepository.ICommercesRepository
 import website.italojar.klikincommerces.domain.model.Commerce
-import java.lang.Exception
 import javax.inject.Inject
 
 class CommercesRepositoryImpl @Inject constructor(

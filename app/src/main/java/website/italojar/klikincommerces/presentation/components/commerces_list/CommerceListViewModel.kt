@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation.commerces_list
+package website.italojar.klikincommerces.presentation.components.commerces_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import website.italojar.klikincommerces.domain.mappers.tovO
-import website.italojar.klikincommerces.domain.model.Commerce
 import website.italojar.klikincommerces.domain.usecase.GetCategoriesUseCase
 import website.italojar.klikincommerces.domain.usecase.GetCommercesByCategoryUseCase
 import website.italojar.klikincommerces.domain.usecase.GetCommercesByDistanceUseCase
@@ -53,7 +52,7 @@ class CommerceListViewModel @Inject constructor(
                 _commerces.value = allCommerces.data.map { commerce -> commerce.tovO() }
                 _categories.value = allCategories.data
                 isLoading.postValue(false)
-            }else {
+            } else {
                 error.postValue(allCommerces.message ?: "Ha ocurrido un error inesperado")
                 isLoading.postValue(false)
             }
@@ -65,9 +64,10 @@ class CommerceListViewModel @Inject constructor(
             isLoading.postValue(true)
             val allCommercesCategory = getCommercesByCategoryUseCase(category)
             if (!allCommercesCategory.data.isNullOrEmpty()) {
-                _commercesByCategory.value = allCommercesCategory.data.map { commerce -> commerce.tovO() }
+                _commercesByCategory.value =
+                    allCommercesCategory.data.map { commerce -> commerce.tovO() }
                 isLoading.postValue(false)
-            }else {
+            } else {
                 error.postValue(allCommercesCategory.message ?: "Ha ocurrido un error inesperado")
                 isLoading.postValue(false)
             }
@@ -81,8 +81,8 @@ class CommerceListViewModel @Inject constructor(
             if (!allCommercesDistance.data.isNullOrEmpty()) {
                 _commercesByDistance.postValue(allCommercesDistance.data.map { commerce -> commerce.tovO() })
                 isLoading.postValue(false)
-            }else {
-                error.postValue(allCommercesDistance.message ?: "Listado por cercanía vacío")
+            } else {
+                error.postValue(allCommercesDistance.message ?: "Listado de comercios cercanos vacío")
                 isLoading.postValue(false)
             }
         }

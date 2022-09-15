@@ -1,26 +1,11 @@
 <resources>
     <string name="app_name">Commerces</string>
-    <string name="fragment_commerces_list">Listado de Comercios</string>
-    <string name="commerces">Comercios</string>
-    <string name="loading">Cargando…</string>
-    <string name="category_other">OTHER</string>
-    <string name="category_food">FOOD</string>
-    <string name="category_beauty">BEAUTY</string>
-    <string name="category_shopping">SHOPPING</string>
-    <string name="error">Ha ocuurido un error inesperado</string>
-    <string name="implement_listener"> deberás implementar IFragmentsListener</string>
-    <string name="detail_fragment_about_commerce">Sobre el comercio</string>
-    <string name="detail_fragment_location">Localización</string>
-    <string name="detail_fragment_take_me_here">Llévame aquí</string>
-    <string name="detail_fragment_come_to_visit_us">¡Ven a conocernos!</string>
-    <string name="detail_fragment_default_image">https://atenoil.com/wp-content/uploads/2018/07/6-min-1.jpg</string>
-    <string name="enable_settings_location">Para activar la localización ve a  los ajustes de la aplicación y acepta los permisos</string>
-    <string name="question_enable_gps">Tú GPS está deshabilitado, ¿quieres habilitarlo?</string>
-    <string name="commerce_image_description">Commerce image</string>
-    <string name="go_to_settings">Ve a ajustes y acepta los permisos</string>
-    <string name="go_to_settings_location_permissions">Para activar la localización ve a ajustes y acepta los permisos</string>
-    <string name="commerces_minus_of">A menos de %s km</string>
-    <string name="commerces_plus_of">A más de 50 km</string>
+    <!-- List Fragment -->
+    <string name="list_fragment_commerces">Listado de Comercios</string>
+    <string name="list_fragment_commerces_minus_of">A menos de %s km</string>
+    <string name="list_fragmentcommerces_plus_of">A más de 50 km</string>
+    <string name="list_fragment_nearest_commerces_empty">Listado de comercios cercanos vacío</string>
+    <string name="list_fragment_init_total_nearest_commerces">0</string>
     <string-array name="distances">
         <item><b> + 1 KM </b></item>
         <item><b> + 3 KM </b></item>
@@ -29,4 +14,26 @@
         <item><b> + 20 KM </b></item>
         <item><b> + 50 KM </b></item>
     </string-array>
+    <!-- Detail Fragment -->
+    <string name="detail_fragment_about_commerce">Sobre el comercio</string>
+    <string name="detail_fragment_location">Localización</string>
+    <string name="detail_fragment_take_me_here">Llévame aquí</string>
+    <string name="detail_fragment_come_to_visit_us">¡Ven a conocernos!</string>
+    <string name="detail_fragment_default_image">https://atenoil.com/wp-content/uploads/2018/07/6-min-1.jpg</string>
+    <!-- Common -->
+    <string name="commerces">Comercios</string>
+    <string name="loading">Cargando…</string>
+    <string name="category_other">OTHER</string>
+    <string name="category_food">FOOD</string>
+    <string name="category_beauty">BEAUTY</string>
+    <string name="category_shopping">SHOPPING</string>
+    <string name="category_leisure">LEISURE</string>
+    <string name="implement_listener"> deberás implementar IFragmentsListener</string>
+    <string name="commerce_image_description">Commerce image</string>
+    <string name="category_image_description">Category image</string>
+    <string name="right_arrow_image_description">Right arrow</string>
+    <string name="go_to_settings">Ve a ajustes y acepta los permisos</string>
+    <string name="go_to_settings_location_permissions">Para activar la localización ve a ajustes y acepta los permisos</string>
+    <string name="TAG_distance_dialog">distanceDialog</string>
+    <string name="error">Ha ocurrido un error inesperado</string>
 </resources>

@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/large"
         android:text="@string/loading"
         android:textColor="@color/secondary"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar" />

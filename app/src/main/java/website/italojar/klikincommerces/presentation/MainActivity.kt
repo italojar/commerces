@@ -24,19 +24,18 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
-import website.italojar.klikincommerces.presentation.components.DistanceDialog
-import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
+import website.italojar.klikincommerces.presentation.interfaces.IDialogListener
+import website.italojar.klikincommerces.presentation.sharedViewModel.SharedCommerceViewModel
 import website.italojar.klikincommerces.presentation.interfaces.IFragmentsListener
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.DialogListener {
+class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: MaterialToolbar
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val sharedViewModel: SharedCommerceViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.Dia
         changeStatusBarColor()
         with(binding) {
             toolbar = toolbarContainer.toolbar
-            setToolbarTitle(getString(R.string.fragment_commerces_list))
+            setToolbarTitle(getString(R.string.list_fragment_commerces))
             val navHostFragment =
                 supportFragmentManager.findFragmentById(fragmentContainerView.id) as NavHostFragment
             val navController  = navHostFragment.navController
@@ -103,7 +102,8 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.Dia
                 //create bundle instance
                 val location: Location? = task.result
                 if (location != null) {
-                    sharedViewModel.getCurrentLocation(LatLng(location.latitude, location.longitude))
+                    sharedViewModel
+                        .getCurrentLocation(LatLng(location.latitude, location.longitude))
                 }
             }
         } else {

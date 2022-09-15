@@ -3,6 +3,15 @@
     <dimen name="small">4dp</dimen>
     <dimen name="medium">8dp</dimen>
     <dimen name="large">16dp</dimen>
+    <dimen name="text_default">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xlarge">28sp</dimen>
+    <dimen name="map_size">220dp</dimen>
     <dimen name="cardview_default">120dp</dimen>
     <dimen name="rv_category_color">42dp</dimen>
+    <dimen name="img_size">56dp</dimen>
+    <dimen name="img_cardview_size">76dp</dimen>
+    <dimen name="img_mini_size">28dp</dimen>
+    <dimen name="info_size">236dp</dimen>
+    <dimen name="item_category">156dp</dimen>
 </resources>

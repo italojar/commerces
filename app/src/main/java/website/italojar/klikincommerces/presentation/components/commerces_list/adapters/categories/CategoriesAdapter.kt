@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation.commerces_list.adapters.categories
+package website.italojar.klikincommerces.presentation.components.commerces_list.adapters.categories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,12 @@ import website.italojar.klikincommerces.R
 
 class CategoriesAdapter(
     private val categories: List<String>,
-    private val onClick : (category: String?) -> Unit
-): RecyclerView.Adapter<CategoriesViewHolder>()  {
+    private val onClick: (category: String?) -> Unit
+) : RecyclerView.Adapter<CategoriesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_categories, parent, false )
+        val view = layoutInflater.inflate(R.layout.item_categories, parent, false)
         return CategoriesViewHolder(view)
     }
 

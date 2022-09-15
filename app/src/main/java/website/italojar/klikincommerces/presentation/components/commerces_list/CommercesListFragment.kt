@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation.commerces_list
+package website.italojar.klikincommerces.presentation.components.commerces_list
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -19,12 +18,12 @@ import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import website.italojar.klikincommerces.R
 import website.italojar.klikincommerces.databinding.FragmentCommercesListBinding
-import website.italojar.klikincommerces.presentation.commerces_list.adapters.categories.CategoriesAdapter
-import website.italojar.klikincommerces.presentation.commerces_list.adapters.commerces.CommerceAdapter
-import website.italojar.klikincommerces.presentation.components.DistanceDialog
+import website.italojar.klikincommerces.presentation.components.commerces_list.adapters.categories.CategoriesAdapter
+import website.italojar.klikincommerces.presentation.components.commerces_list.adapters.commerces.CommerceAdapter
+import website.italojar.klikincommerces.presentation.components.dialog.DistanceDialog
 import website.italojar.klikincommerces.presentation.model.CommerceVO
 import website.italojar.klikincommerces.presentation.mappers.toDetail
-import website.italojar.klikincommerces.presentation.viewmodel.SharedCommerceViewModel
+import website.italojar.klikincommerces.presentation.sharedViewModel.SharedCommerceViewModel
 
 
 @AndroidEntryPoint
@@ -38,9 +37,10 @@ class CommercesListFragment : Fragment() {
     private lateinit var commercesMutableList: MutableList<CommerceVO>
     private lateinit var commercesAdapter: CommerceAdapter
     private lateinit var categoriesMutableList: MutableList<String>
-    private var distancesMutableList: MutableList<Double> = mutableListOf(0.0)
-    private var latitude: Float = 40.4169473f
-    private var longitude: Float = -3.7035285f
+
+    // km.0 Madrid - Es
+    private var latitude: Double = 40.4169473
+    private var longitude: Double = -3.7035285
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,20 +53,20 @@ class CommercesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvCommercesDistance.text = getString(R.string.commerces_plus_of)
         getUiData()
     }
 
     override fun onStart() {
         super.onStart()
         activityViewModel.currentLocation.observe(viewLifecycleOwner, { currentLocation ->
-            latitude = currentLocation.latitude.toFloat()
-            longitude = currentLocation.longitude.toFloat()
+            latitude = currentLocation.latitude
+            longitude = currentLocation.longitude
         })
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getUiData() {
+        binding.tvCommercesDistance.text = getString(R.string.list_fragmentcommerces_plus_of)
         // success
         viewModel.commerces.observe(viewLifecycleOwner, Observer { commerces_list ->
             commercesMutableList = commerces_list as MutableList<CommerceVO>
@@ -114,20 +114,20 @@ class CommercesListFragment : Fragment() {
         })
         // error
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            if (error.equals("Listado por cercanía vacío")) {
-                binding.nearestCommerces.text = "0"
+            if (error.equals(getString(R.string.list_fragment_nearest_commerces_empty))) {
+                binding.nearestCommerces.text = getString(R.string.list_fragment_init_total_nearest_commerces)
                 binding.tvErrorDistance.isVisible = true
             } else {
                 binding.cardviewCommerces.isVisible = false
                 binding.cardviewDistance.isVisible = false
                 binding.rvCategories.isVisible = false
                 binding.rvCommerces.isVisible = false
+                binding.tvError.isVisible = true
+                binding.tvError.text = error
                 if (this::categoriesMutableList.isInitialized) {
                     commercesMutableList.clear()
                     commercesAdapter.notifyDataSetChanged()
                 }
-                binding.tvError.isVisible = true
-                binding.tvError.text = error
                 binding.tvError.setOnClickListener {
                     startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
                 }
@@ -159,7 +159,7 @@ class CommercesListFragment : Fragment() {
                 CommercesListFragmentDirections
                     .actionCommercesListFragmentToCommerceDetailFragment(
                         commerce.toDetail(),
-                        latitude, longitude
+                        latitude.toFloat(), longitude.toFloat()
                     )
             )
         }
@@ -169,7 +169,10 @@ class CommercesListFragment : Fragment() {
 
     private fun onCardDistanceClick() {
         val newFragment = DistanceDialog()
-        newFragment.show(requireActivity().supportFragmentManager, "distanceDialog")
+        newFragment.show(
+            requireActivity().supportFragmentManager,
+            getString(R.string.TAG_distance_dialog)
+        )
     }
 
     private fun filterCommercesByDistance(distanceSelected: Int) {
@@ -177,9 +180,9 @@ class CommercesListFragment : Fragment() {
             initRecyclerViewCommerces()
         } else {
             binding.tvCommercesDistance.text =
-                getString(R.string.commerces_minus_of, (distanceSelected / 1000).toString())
+                getString(R.string.list_fragment_commerces_minus_of, (distanceSelected / 1000).toString())
             viewModel.getCommercesByDistance(
-                distanceSelected, LatLng(latitude.toDouble(), longitude.toDouble())
+                distanceSelected, LatLng(latitude, longitude)
             )
         }
     }

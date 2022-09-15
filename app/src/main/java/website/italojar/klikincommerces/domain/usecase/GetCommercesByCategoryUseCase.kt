@@ -13,15 +13,15 @@ class GetCommercesByCategoryUseCase @Inject constructor(
     suspend operator fun invoke(category: String): ResponseCommerces<Commerce> {
         try {
             val commerces = repository.getAllCommerces()
-            return if(commerces.isNotEmpty())
+            return if (commerces.isNotEmpty())
                 ResponseCommerces.Success(commerces.filter {
                     it.active && it.category == category
                 })
             else
                 ResponseCommerces.Success(emptyList())
-        }catch (httpExc: HttpException) {
+        } catch (httpExc: HttpException) {
             return ResponseCommerces.Error("Ha ocurrido un error inesperado")
-        }catch (ioExc: IOException) {
+        } catch (ioExc: IOException) {
             return ResponseCommerces.Error(
                 "No se ha podido conectar \ncon el servidor. \nComprueba tu conexión a internet. " +
                         "\nHAZ CLICK AQUÍ"

@@ -1,4 +1,4 @@
-package website.italojar.klikincommerces.presentation.commerce_detail
+package website.italojar.klikincommerces.presentation.components.commerce_detail
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -26,9 +27,8 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentCommerceDetailBinding? = null
     private val binding get() = _binding!!
+
     val args: CommerceDetailFragmentArgs by navArgs()
-
-
     private lateinit var map: GoogleMap
     private var mContext: IFragmentsListener? = null
 
@@ -72,7 +72,10 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
 
     private fun navigateToMaps() {
         binding.tvTakeMeHere.setOnClickListener {
-            takeMeToMap(Uri.parse("http://maps.google.com/maps?saddr=${args.latitude}, ${args.longitude}&daddr=${args.commerceDetail.latitude}, ${args.commerceDetail.longitude}"))
+            takeMeToMap(Uri
+                    .parse("http://maps.google.com/maps?saddr=${args.latitude}, ${args.longitude}" +
+                                "&daddr=${args.commerceDetail.latitude}, ${args.commerceDetail.longitude}")
+            )
         }
     }
 
@@ -83,30 +86,31 @@ class CommerceDetailFragment : Fragment(), OnMapReadyCallback {
             imCommercerImage.loadImage(
                 args.commerceDetail.logo ?: getString(R.string.detail_fragment_default_image)
             )
-
             tvTelephoneDetail.setOnClickListener { dialPhoneNumber(args.commerceDetail.contact) }
             tvStreetDetail.text = args.commerceDetail.address.capitalize()
             tvTelephoneDetail.text = args.commerceDetail.contact
             tvTimetableDetail.text = args.commerceDetail.openingHours
-            tvDescriptionDetail.text =
-                args.commerceDetail.description ?: getString(R.string.detail_fragment_come_to_visit_us)
+            tvDescriptionDetail.text = args.commerceDetail.description ?: getString(R.string.detail_fragment_come_to_visit_us)
+            setCategory(args.commerceDetail.category, binding.imCategoryDetail)
+        }
+    }
 
-            when(args.commerceDetail.category) {
-                "SHOPPING" -> {
-                    binding.imCategoryDetail.setImageResource(R.drawable.cart_colour)
-                }
-                "FOOD" -> {
-                    binding.imCategoryDetail.setImageResource(R.drawable.catering_colour)
-                }
-                "BEAUTY" -> {
-                    binding.imCategoryDetail.setImageResource(R.drawable.beauty_colour)
-                }
-                "LEISURE" -> {
-                    binding.imCategoryDetail.setImageResource(R.drawable.leisure_colour)
-                }
-                "OTHER" -> {
-                    binding.imCategoryDetail.setImageResource(R.drawable.truck_colour)
-                }
+    private fun setCategory(category: String?, img: ImageView) {
+        when (category) {
+            getString(R.string.category_shopping) -> {
+                img.setImageResource(R.drawable.cart_colour)
+            }
+            getString(R.string.category_food) -> {
+                img.setImageResource(R.drawable.catering_colour)
+            }
+            getString(R.string.category_beauty) -> {
+                img.setImageResource(R.drawable.beauty_colour)
+            }
+            getString(R.string.category_leisure) -> {
+                img.setImageResource(R.drawable.leisure_colour)
+            }
+            getString(R.string.category_other) -> {
+                img.setImageResource(R.drawable.truck_colour)
             }
         }
     }

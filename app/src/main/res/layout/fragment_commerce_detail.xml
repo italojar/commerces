@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/medium"
-    tools:context=".presentation.commerce_detail.CommerceDetailFragment">
+    tools:context=".presentation.components.commerce_detail.CommerceDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_commerce_image"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="@dimen/cardview_default"
             android:layout_marginHorizontal="@dimen/large"
             app:cardCornerRadius="@dimen/medium"
             app:layout_constraintBottom_toTopOf="@id/map_container"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large"
             android:text="@string/detail_fragment_location"
-            android:textSize="21sp"
+            android:textSize="@dimen/text_large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/map_container"
@@ -52,7 +52,7 @@
             android:layout_marginHorizontal="@dimen/large"
             android:text="@string/detail_fragment_take_me_here"
             android:textColor="@color/secondary_light"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_default"
             app:layout_constraintBottom_toBottomOf="@id/tv_location"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -60,7 +60,7 @@
             android:id="@+id/map_container"
             layout="@layout/fragment_map"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="@dimen/map_size"
             android:layout_marginTop="@dimen/large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,15 +79,15 @@
 
             <ImageView
                 android:id="@+id/im_category_detail"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
                 android:padding="@dimen/medium"
                 android:layout_margin="@dimen/large"
                 android:background="@color/background"
                 android:src="@drawable/catering_colour" />
 
             <LinearLayout
-                android:layout_width="236dp"
+                android:layout_width="@dimen/info_size"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/large"
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_large"
                     android:textStyle="bold"
                     tools:text="Calle Evergreen Terrace"
                     android:layout_weight="2"/>
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
                     android:padding="@dimen/small"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/text_default"
                     tools:text="919191919"
                     android:textColor="@color/secondary_light"
                     android:layout_weight="1"
@@ -119,8 +119,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:textSize="16sp"
-                    tools:text="Horarios: 000000000000000000000000000000000000000000000000000000000000000"
+                    android:textSize="@dimen/text_default"
+                    tools:text="Horarios: 0000"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/small"
                     android:drawableStart="@drawable/time_colour"/>
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large"
             android:text="@string/detail_fragment_about_commerce"
-            android:textSize="21sp"
+            android:textSize="@dimen/text_large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView_info"/>
@@ -157,7 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/large"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_default"
                 tools:text="Si eres mayor de edad y quieres aumentar tus ingresos puedes colaborar como gestor de ventas independiente. Monta tu negocio de perfumes y si tienes negocio , dale un impulso con perfumeria de alta gama ..Envia wassap o llama al 681 671 968" />
 
         </androidx.cardview.widget.CardView>
