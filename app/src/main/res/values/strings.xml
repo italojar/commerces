@@ -19,12 +19,14 @@
     <string name="commerce_image_description">Commerce image</string>
     <string name="go_to_settings">Ve a ajustes y acepta los permisos</string>
     <string name="go_to_settings_location_permissions">Para activar la localización ve a ajustes y acepta los permisos</string>
+    <string name="commerces_minus_of">A menos de %s km</string>
+    <string name="commerces_plus_of">A más de 50 km</string>
     <string-array name="distances">
-        <item> + 1 KM</item>
-        <item> + 3 KM</item>
-        <item> + 5 KM</item>
-        <item> + 10 KM</item>
-        <item> + 20 KM</item>
-        <item> + 50 KM</item>
+        <item><b> + 1 KM </b></item>
+        <item><b> + 3 KM </b></item>
+        <item><b> + 5 KM </b></item>
+        <item><b> + 10 KM </b></item>
+        <item><b> + 20 KM </b></item>
+        <item><b> + 50 KM </b></item>
     </string-array>
 </resources>

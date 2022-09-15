@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.Dia
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: MaterialToolbar
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private val viewModel: SharedCommerceViewModel by viewModels()
+    private val sharedViewModel: SharedCommerceViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.Dia
                 //create bundle instance
                 val location: Location? = task.result
                 if (location != null) {
-                    viewModel.getCurrentLocation(LatLng(location.latitude, location.longitude))
+                    sharedViewModel.getCurrentLocation(LatLng(location.latitude, location.longitude))
                 }
             }
         } else {
@@ -145,6 +145,6 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, DistanceDialog.Dia
     }
 
     override fun onDialogPositiveClick(distance: Int) {
-        Toast.makeText(this, distance.toString(), Toast.LENGTH_SHORT).show()
+        sharedViewModel.getDistance(distance)
     }
 }

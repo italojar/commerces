@@ -70,6 +70,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     // Maps
+    implementation 'com.google.maps.android:android-maps-utils:2.3.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     // Picasso

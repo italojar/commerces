@@ -15,63 +15,18 @@ import website.italojar.klikincommerces.presentation.model.CommerceVO
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedCommerceViewModel @Inject constructor(
-    private val getAllCommercesUseCase: GetCommercesUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getCommercesByCategoryUseCase: GetCommercesByCategoryUseCase,
-) : ViewModel() {
-
-    private val _commerces = MutableLiveData<List<CommerceVO>>()
-    val commerces: LiveData<List<CommerceVO>> = _commerces
-
-    private val _commercesByCategory = MutableLiveData<List<CommerceVO>>()
-    val commercesByCategory: LiveData<List<CommerceVO>> = _commercesByCategory
-
-    private val _categories = MutableLiveData<List<String>?>()
-    val categories: LiveData<List<String>?> = _categories
-
-    val isLoading = MutableLiveData<Boolean>()
-
-    val error = MutableLiveData<String>()
+class SharedCommerceViewModel @Inject constructor() : ViewModel() {
 
     private val _currentLocation = MutableLiveData<LatLng>()
     val currentLocation: LiveData<LatLng> = _currentLocation
-
-    init {
-        getInitDataToSetUi()
-    }
-
-    private fun getInitDataToSetUi() {
-        viewModelScope.launch {
-            isLoading.postValue(true)
-            val allCommerces = getAllCommercesUseCase()
-            val allCategories = getCategoriesUseCase()
-            if (!allCommerces.data.isNullOrEmpty()) {
-                _commerces.value = allCommerces.data.map { commerce -> commerce.tovO() }
-                _categories.value = allCategories.data
-                isLoading.postValue(false)
-            }else {
-                error.postValue(allCommerces.message ?: "Ha ocurrido un error inesperado")
-                isLoading.postValue(false)
-            }
-        }
-    }
-
-    fun getCommercesByCategory(category: String) {
-        viewModelScope.launch {
-            isLoading.postValue(true)
-            val allCommerces = getCommercesByCategoryUseCase(category)
-            if (!allCommerces.data.isNullOrEmpty()) {
-                _commercesByCategory.value = allCommerces.data.map { commerce -> commerce.tovO() }
-                isLoading.postValue(false)
-            }else {
-                error.postValue(allCommerces.message ?: "Ha ocurrido un error inesperado")
-                isLoading.postValue(false)
-            }
-        }
-    }
+    private val _distance = MutableLiveData<Int>()
+    val distance: LiveData<Int> = _distance
 
     fun getCurrentLocation(location: LatLng) {
         _currentLocation.value = location
+    }
+
+    fun getDistance(distance: Int) {
+        _distance.value = distance
     }
 }

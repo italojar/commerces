@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large"
             android:layout_marginBottom="@dimen/large"
-            android:textSize="32sp"
+            android:textSize="28sp"
             tools:text="101"
             android:layout_gravity="start|center"
             android:textColor="@color/white"/>
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large"
             android:layout_marginTop="@dimen/large"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="@string/commerces"
             android:layout_gravity="center_vertical"
             android:textColor="@color/white" />
@@ -72,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large"
             android:layout_marginBottom="@dimen/large"
-            android:textSize="32sp"
-            android:text="10"
+            android:textSize="28sp"
+            tools:text="10"
             android:layout_gravity="start|center"
             android:textColor="@color/primary"/>
 
@@ -83,10 +83,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large"
             android:layout_marginTop="@dimen/large"
-            android:textSize="18sp"
-            android:text="A menos de 1 km"
+            android:lines="1"
+            android:maxLines="1"
+            android:ellipsize="middle"
+            android:textSize="16sp"
+            android:text="@string/commerces_minus_of"
             android:layout_gravity="center_vertical"
             android:textColor="@color/title" />
+
+        <include
+            android:id="@+id/progressBarTotalNearest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
+            android:layout_marginBottom="@dimen/large"
+            android:layout_gravity="start|center"
+            android:visibility="gone"
+            layout="@layout/progressbar"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -117,6 +130,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_commerce"
         tools:itemCount="3"/>
+
+    <TextView
+        android:id="@+id/tv_error_distance"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/medium"
+        android:layout_marginVertical="@dimen/large"
+        app:layout_constraintTop_toBottomOf="@id/rv_categories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tv_error"
