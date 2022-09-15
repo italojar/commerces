@@ -7,7 +7,10 @@ import website.italojar.klikincommerces.data.repository.CommercesRepositoryImpl
 import website.italojar.klikincommerces.domain.model.Commerce
 import website.italojar.klikincommerces.domain.model.ResponseCommerces
 import java.io.IOException
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class GetCommercesByDistanceUseCase @Inject constructor(
     private val repository: CommercesRepositoryImpl
@@ -17,20 +20,23 @@ class GetCommercesByDistanceUseCase @Inject constructor(
             val commercesMutableList: MutableList<Commerce> = emptyList<Commerce>().toMutableList()
             var distance: Double
             val commerces = repository.getAllCommerces()
-            commerces.forEach { commerce ->
+            val commercesActives = commerces.filter { it.active }
+            commercesActives.forEach { commerce ->
                 distance = SphericalUtil
                     .computeDistanceBetween(
                         LatLng(commerce.latitude, commerce.longitude),
                         LatLng(latLang.latitude, latLang.longitude)
                     )
-                if (distance.toInt() <= distanceSelected) {
+                if (distance <= distanceSelected) {
+                    val currentDistance = BigDecimal(distance/1000).setScale(2, RoundingMode.FLOOR)
+                    commerce.distance = currentDistance.toDouble()
                     commercesMutableList.add(commerce)
                 }
             }
-            return if(commerces.isNotEmpty())
-                ResponseCommerces.Success(commercesMutableList.filter { it.active })
-            else
-                ResponseCommerces.Success(emptyList())
+            return if(commerces.isNotEmpty()) {
+                ResponseCommerces.Success(commercesMutableList)
+            }else { ResponseCommerces.Success(emptyList()) }
+
         }catch (httpExc: HttpException) {
             return ResponseCommerces.Error("Ha ocurrido un error inesperado")
         }catch (ioExc: IOException) {

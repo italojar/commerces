@@ -79,7 +79,7 @@ class CommerceListViewModel @Inject constructor(
             isLoading.postValue(true)
             val allCommercesDistance = getCommercesByDistanceUseCase(distanceSelected, latLng)
             if (!allCommercesDistance.data.isNullOrEmpty()) {
-                _commercesByDistance.value = allCommercesDistance.data.map { commerce -> commerce.tovO() }
+                _commercesByDistance.postValue(allCommercesDistance.data.map { commerce -> commerce.tovO() })
                 isLoading.postValue(false)
             }else {
                 error.postValue(allCommercesDistance.message ?: "Listado por cercanía vacío")

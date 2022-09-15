@@ -10,6 +10,7 @@ data class CommerceVO(
     val category: String?,
     val contact: Contact,
     val description: String?,
+    var distance: Double?,
     val id: String,
     val latitude: Double,
     val logo: LogoX?,

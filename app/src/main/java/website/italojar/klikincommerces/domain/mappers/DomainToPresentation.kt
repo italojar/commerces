@@ -9,6 +9,7 @@ fun Commerce.tovO() = CommerceVO(
     category = this.category,
     contact = this.contact,
     description = this.description,
+    distance = this.distance,
     id = this.id,
     latitude = this.latitude,
     logo = this.logo,

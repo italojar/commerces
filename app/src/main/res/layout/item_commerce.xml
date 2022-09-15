@@ -40,7 +40,7 @@
             android:layout_marginHorizontal="@dimen/large"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="250m."
+            tools:text="250m."
             android:textColor="@color/white"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@id/im_arrow_right"

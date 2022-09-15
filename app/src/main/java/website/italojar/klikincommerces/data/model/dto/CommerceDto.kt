@@ -6,6 +6,7 @@ data class CommerceDto(
     val category: String,
     val contact: Contact,
     val description: String,
+    val distance: Double?,
     val id: String,
     val latitude: Double,
     val logo: LogoX,

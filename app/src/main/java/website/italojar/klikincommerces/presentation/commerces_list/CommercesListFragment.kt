@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -37,6 +38,7 @@ class CommercesListFragment : Fragment() {
     private lateinit var commercesMutableList: MutableList<CommerceVO>
     private lateinit var commercesAdapter: CommerceAdapter
     private lateinit var categoriesMutableList: MutableList<String>
+    private var distancesMutableList: MutableList<Double> = mutableListOf(0.0)
     private var latitude: Float = 40.4169473f
     private var longitude: Float = -3.7035285f
 
