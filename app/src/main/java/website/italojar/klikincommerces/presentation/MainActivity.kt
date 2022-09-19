@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
     private lateinit var toolbar: MaterialToolbar
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val sharedViewModel: SharedCommerceViewModel by viewModels()
+    private var cont: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
             setToolbarTitle(getString(R.string.list_fragment_commerces))
             val navHostFragment =
                 supportFragmentManager.findFragmentById(fragmentContainerView.id) as NavHostFragment
-            val navController  = navHostFragment.navController
+            val navController = navHostFragment.navController
             setToolbarNavigation(navController, toolbar)
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if (isPermissionsGranted()) {
-            fusedLocationProviderClient.lastLocation.addOnCompleteListener{ task ->
+            fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
                 //create bundle instance
                 val location: Location? = task.result
                 if (location != null) {
@@ -112,12 +113,20 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
     }
 
     private fun requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Toast.makeText(this, getString(R.string.go_to_settings), Toast.LENGTH_SHORT).show()
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            cont++
+            if (cont < 3) {
+                Toast.makeText(this, getString(R.string.go_to_settings), Toast.LENGTH_SHORT).show()
+            }
         } else {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0
+            )
         }
     }
 
@@ -127,19 +136,23 @@ class MainActivity : AppCompatActivity(), IFragmentsListener, IDialogListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode == 0){
-            true -> if(grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        when (requestCode == 0) {
+            true -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
             else -> {
-                Toast.makeText(this, getString(R.string.go_to_settings_location_permissions), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.go_to_settings_location_permissions),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        if(!isPermissionsGranted()){
+        if (!isPermissionsGranted()) {
             requestLocationPermission()
         }
     }
